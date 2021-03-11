@@ -1,0 +1,90 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>二级联动菜单</title>
+	<!-- 
+	注意: 
+		ie10以下的浏览器不支持 select,table上的innerHTML属性
+		删除option时，由于删除后，options长度发生了变化，所以直接用for循环会有漏删的情况，可以由后向前删除，可以避免这样的问题
+	-->
+<script>
+	function getCountry(){
+		var countrySele = document.getElementsByName("country")[0];
+		alert(countrySele.value);
+	}
+
+	function selectCity(province){
+		var data = {
+			"北京市":["海淀区","朝阳区","丰台区"], 
+			"河北省":["石家庄","唐山","秦皇岛"],
+			"辽宁省":["沈阳","大连","鞍山"],
+			"山东省":["青岛","济南","烟台"]
+		}
+		//alert(data["北京市"]);
+		var provSelec = document.getElementById("province");
+		var province = provSelec.value;
+		var citys = data[province];
+
+		//方式一: IE10以下的浏览器 不支持select, table上的innerHTML属性
+		//var opts = "<option>--选择城市--</option>";
+		//var citySele = document.getElementById("city");
+		//for(var i=0; i<citys.length; i++){
+		//	opts += "<option>"+ citys[i] +"</option>";
+		//}
+		//citySele.innerHTML = opts;
+
+		//方式二:
+		var citySele = document.getElementById("city");
+
+		//清空之前的数据
+		var opts = citySele.getElementsByTagName("option");
+		var len = opts.length
+		for(var i=0; i< len; i++){
+			citySele.removeChild(opts[0]);
+		}
+		
+		var option = document.createElement("option");
+		option.innerText = "--选择城市--";
+		citySele.appendChild(option);
+		for(var i=0; i<citys.length; i++){
+			var option = document.createElement("option");
+			option.innerText = citys[i];
+			citySele.appendChild(option);
+		}
+		
+	}
+</script>
+</head>
+<!--	 
+	"北京市": "海淀区","朝阳区","丰台区"
+	"河北省": "石家庄","唐山","秦皇岛"
+	"辽宁省": "沈阳","大连","鞍山"
+	"山东省": "青岛","济南","烟台"
+-->
+<body>
+	
+	<select name="country" onchange="getCountry()">
+		<option value="none">--选择国家--</option>
+		<option value="中国">中国</option>
+		<option value="美国">美国</option>
+		<option value="日本">日本</option>
+	</select>
+	<br><br>
+	<hr/>
+	<br>
+	<div id="seleDiv">
+		<select id="province" onchange="selectCity(this)">
+			<option>--选择省市--</option>
+			<option>北京市</option>
+			<option>河北省</option>
+			<option>辽宁省</option>
+			<option>山东省</option>
+		</select>
+		<select id="city">
+			<option>--选择城市--</option>
+		</select>
+	</div>
+</body>
+
+</html>

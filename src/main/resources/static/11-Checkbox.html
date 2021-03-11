@@ -1,0 +1,82 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>全选反选问题</title>
+<script>
+	function checkAll(obj){
+		var isCheck = obj.checked;
+		var items = document.getElementsByName("item");
+		var len = items.length;
+		for(var i=0; i<len; i++){
+			items[i].checked = isCheck;
+		}
+	}
+	
+	window.onload = function(){	//当页面加载完成后获取所有的item
+		var items = document.getElementsByName("item");
+		var len = items.length;
+		for(var i=0; i<len; i++){
+			items[i].onclick = function(){
+				var flag = true;
+				for(var j=0; j<len; j++){
+					if(!items[j].checked){
+						flag = false;
+					}
+				}
+				var all = document.getElementById("all1");
+				all.checked = flag;
+			}
+		}
+		
+	}
+
+	function check(){
+		var items = document.getElementsByName("item");
+		var len = items.length;
+		for(var i=0; i<len; i++){
+			items[i].checked = !items[i].checked ;
+		}
+
+		var flag = true;
+		for(var j=0; j<len; j++){
+			if(!items[j].checked){
+				flag = false;
+			}
+		}
+		var all = document.getElementById("all1");
+		all.checked = flag;
+		
+		
+		
+	}
+
+	function getSum(){
+		var sum = 0;
+		var items = document.getElementsByName("item");
+		var len = items.length;
+		for(var i=0; i<len; i++){
+			if(items[i].checked){
+				sum += parseFloat(items[i].value);;
+			}
+		}
+		var oSpan = document.getElementById("sumId");
+		oSpan.innerText = "总金额为: "+ sum +"元 ";
+	}
+</script>
+</head>
+
+<body>
+<div>商品列表</div>
+<input type="checkbox" name="item" value="3000" />笔记本3000元<br />
+<input type="checkbox" name="item" value="2500"/>HTC手机2500<br />
+<input type="checkbox" name="item" value="8000" />苹果电脑8000<br />
+<input type="checkbox" name="item" value="1500" />IPAD1500<br />
+<input type="checkbox" name="item" value="400" />玩具汽车400<br />
+
+<input type="checkbox" id="all1" name="all" onclick="checkAll(this)"/>全选<br />
+<input type="checkbox" id="all2" name="all" onclick="check()"/>反选<br />
+
+<input type="button" value="总金额" onclick="getSum()" /><span id="sumId"></span>
+</body>
+</html>
