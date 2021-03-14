@@ -1,0 +1,28 @@
+use test;
+
+drop table if exists 'user';
+
+CREATE TABLE `user` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(10) DEFAULT NULL,
+  `sex` varchar(10) DEFAULT NULL,
+  `age` int(11) DEFAULT '0',
+  `email` varchar(128) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+insert into `user` values (1,'xiaoming','man',21,'xiaoming@qq.com'),
+(2,'xiaohong','women',22,'xiaohong@qq.com')
+
+在MySQL中，为了区分MySQL的关键字与普通字符，MySQL引入了一个反引号。
+列名称使用的是单引号而不是反引号，所以会就报了这个错误出来
+
+CREATE TABLE `lrs_audit_rule_package`(
+  `id` BIGINT(20) AUTO_INCREMENT PRIMARY KEY COMMENT '主键',
+  `package_code` varchar(6)  NOT NULL COMMENT '规则包',
+  `package_type` varchar(2)  NOT NULL COMMENT '规则包类型',
+  `package_desc` varchar(100)  COMMENT '描述',
+  `create_time` datetime DEFAULT NULL COMMENT '创始时间',
+  `modified_time` datetime DEFAULT NULL COMMENT '修改时间'
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='审核规则包';
+
